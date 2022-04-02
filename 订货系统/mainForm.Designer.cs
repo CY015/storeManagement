@@ -77,6 +77,7 @@
             this.comIO_cID = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tPioReport = new System.Windows.Forms.TabPage();
+            this.btn_bangdan = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.date_cIOEnd = new System.Windows.Forms.DateTimePicker();
             this.cIO_Search = new System.Windows.Forms.Button();
@@ -107,6 +108,8 @@
             this.btnSearchRecord = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.dTP_oStartTime = new System.Windows.Forms.DateTimePicker();
+            this.btn_baobiao = new System.Windows.Forms.Button();
+            this.btn_designBangdan = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tPBusiness.SuspendLayout();
             this.tPComponent.SuspendLayout();
@@ -683,6 +686,8 @@
             // 
             // tPioReport
             // 
+            this.tPioReport.Controls.Add(this.btn_designBangdan);
+            this.tPioReport.Controls.Add(this.btn_bangdan);
             this.tPioReport.Controls.Add(this.label19);
             this.tPioReport.Controls.Add(this.date_cIOEnd);
             this.tPioReport.Controls.Add(this.cIO_Search);
@@ -695,6 +700,16 @@
             this.tPioReport.TabIndex = 7;
             this.tPioReport.Text = "零件出入库详情";
             this.tPioReport.UseVisualStyleBackColor = true;
+            // 
+            // btn_bangdan
+            // 
+            this.btn_bangdan.Location = new System.Drawing.Point(712, 29);
+            this.btn_bangdan.Name = "btn_bangdan";
+            this.btn_bangdan.Size = new System.Drawing.Size(101, 41);
+            this.btn_bangdan.TabIndex = 13;
+            this.btn_bangdan.Text = "打印磅单";
+            this.btn_bangdan.UseVisualStyleBackColor = true;
+            this.btn_bangdan.Click += new System.EventHandler(this.btn_bangdan_Click);
             // 
             // label19
             // 
@@ -927,6 +942,7 @@
             // tPOrderReport
             // 
             this.tPOrderReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tPOrderReport.Controls.Add(this.btn_baobiao);
             this.tPOrderReport.Controls.Add(this.btnOrderReport2);
             this.tPOrderReport.Controls.Add(this.btnExit2);
             this.tPOrderReport.Controls.Add(this.btnReturn2);
@@ -1051,6 +1067,26 @@
             this.dTP_oStartTime.Size = new System.Drawing.Size(200, 21);
             this.dTP_oStartTime.TabIndex = 3;
             // 
+            // btn_baobiao
+            // 
+            this.btn_baobiao.Location = new System.Drawing.Point(746, 72);
+            this.btn_baobiao.Name = "btn_baobiao";
+            this.btn_baobiao.Size = new System.Drawing.Size(131, 48);
+            this.btn_baobiao.TabIndex = 14;
+            this.btn_baobiao.Text = "打印报表";
+            this.btn_baobiao.UseVisualStyleBackColor = true;
+            this.btn_baobiao.Click += new System.EventHandler(this.btn_baobiao_Click);
+            // 
+            // btn_designBangdan
+            // 
+            this.btn_designBangdan.Location = new System.Drawing.Point(718, 123);
+            this.btn_designBangdan.Name = "btn_designBangdan";
+            this.btn_designBangdan.Size = new System.Drawing.Size(95, 42);
+            this.btn_designBangdan.TabIndex = 14;
+            this.btn_designBangdan.Text = "磅单设计";
+            this.btn_designBangdan.UseVisualStyleBackColor = true;
+            this.btn_designBangdan.Click += new System.EventHandler(this.btn_designBangdan_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1060,6 +1096,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "订货系统";
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tPBusiness.ResumeLayout(false);
             this.tPBusiness.PerformLayout();
@@ -1168,6 +1205,9 @@
         private System.Windows.Forms.DateTimePicker date_cIOStart;
         private System.Windows.Forms.Button btnOrderReport2;
         private System.Windows.Forms.Button btnOrderDel;
+        private System.Windows.Forms.Button btn_bangdan;
+        private System.Windows.Forms.Button btn_baobiao;
+        private System.Windows.Forms.Button btn_designBangdan;
     }
 }
 

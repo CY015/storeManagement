@@ -11,7 +11,7 @@ namespace 订货系统
     class ConnSQL
     {
         // 个人连接SQL Server信息
-        private string MySqlCon = "Data Source=DESKTOP-5NV5EFJ;Initial Catalog=OrderSystem;Integrated Security=True";
+        private string MySqlCon = "Data Source=XTZJ-20220305KP\\SQLEXPRESS;Initial Catalog=OrderSystem;Integrated Security=True";
 
         //查询
         public DataTable ExecuteQuery(string sqlStr)

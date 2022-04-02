@@ -11,11 +11,13 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using NPOI;
+using FastReport;
 
 namespace 订货系统
 {
     public partial class mainForm : Form
     {
+        DataTable ioInfo = new DataTable();
         public mainForm()
         {
             InitializeComponent();
@@ -563,7 +565,7 @@ namespace 订货系统
             string endTime = date_cIOEnd.Value.ToString("yyyy-MM-dd") + "24:00:00";
             string condition;
             ConnSQL con = new ConnSQL();
-            DataTable ioInfo = new DataTable();
+            // DataTable ioInfo = new DataTable();
 
             condition = "SELECT cy_cID,cy_cIOType,cy_cIONum,cy_cIOTime FROM Component_IO WHERE cy_cIOTime BETWEEN '"+startTime+"' AND'"+endTime+ "' ORDER BY cy_cIOTime DESC";
             ioInfo = con.ExecuteQuery(condition);
@@ -572,6 +574,58 @@ namespace 订货系统
             dGV_ComponentIO.Columns["cy_cIOType"].HeaderText = "出/入库";
             dGV_ComponentIO.Columns["cy_cIONum"].HeaderText = "出/入库数量";
             dGV_ComponentIO.Columns["cy_cIOTime"].HeaderText = "出/入库时间";
+        }
+        private void btn_bangdan_Click(object sender, EventArgs e)
+        {
+            int i = this.dGV_ComponentIO.Rows.Count;
+            DataTable dt_bangdan = new DataTable();
+            try
+            {
+                int iCount = dGV_ComponentIO.SelectedRows.Count;
+                if (iCount < 1)
+                {
+                    MessageBox.Show("无出入库详情，请先查询", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (iCount == 1)
+                {
+                    if (i != this.dGV_ComponentIO.Rows.Count - 2)
+                    {
+                        for (int k = i; k >= 1; k--)
+                        {
+                            //被选中状态
+                            if (this.dGV_ComponentIO.Rows[k - 1].Selected == true)
+                            {
+                                dt_bangdan.Columns.Add("cID");
+                                dt_bangdan.Columns.Add("cIOType");
+                                dt_bangdan.Columns.Add("cIONum");
+                                dt_bangdan.Columns.Add("cIOTime");
+                                DataRow row = dt_bangdan.NewRow();
+
+                                dt_bangdan.TableName = "bangdan";
+                                row["cID"] = this.dGV_ComponentIO.Rows[k - 1].Cells[0].Value.ToString();
+                                row["cIOType"] = this.dGV_ComponentIO.Rows[k - 1].Cells[1].Value.ToString();
+                                row["cIONum"] = this.dGV_ComponentIO.Rows[k - 1].Cells[2].Value.ToString();
+                                row["cIOTime"] = this.dGV_ComponentIO.Rows[k - 1].Cells[3].Value.ToString();
+
+                                dt_bangdan.Rows.Add(row);
+                                // dGV_component.Rows.Remove(dGV_component.Rows[k - 1]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("行数超过一行");
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("未成功打印");
+            }
+
+            Form1 f1 = new Form1(dt_bangdan);
         }
 
         /// <summary>
@@ -858,5 +912,36 @@ namespace 订货系统
             }
         }
 
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            /**
+            *
+            * 1. 连数据库
+            * 2. 查询股票表
+            * 3. 查询结果返回给DataGridView控件
+            */
+        }
+
+        private void btn_baobiao_Click(object sender, EventArgs e)
+        {
+            if (dGV_reportAll.Rows.Count < 1)
+            {
+                MessageBox.Show("无报表信息，请先查询。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void btn_designBangdan_Click(object sender, EventArgs e)
+        {
+            Report dreport = new Report();
+            dreport.Load("F:\\1_University\\Project_C#\\reportTemplate\\bangdan.frx");
+            dreport.Design();
+            //dreport.Show();
+
+        }
     }
 }
